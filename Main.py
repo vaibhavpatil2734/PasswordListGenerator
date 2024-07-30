@@ -44,4 +44,17 @@ def generate_passwords(name, birthdate, surname, company, platform, keywords):
 
     return list(passwords)
 
+def main():
+    """ Main function to run the script. """
+    name, birthdate, surname, company, platform, keywords = get_user_input()
+    passwords = generate_passwords(name, birthdate, surname, company, platform, keywords)
+    
+    # Save passwords to a file
+    with open("passwords.txt", "w") as file:
+        for password in passwords:
+            file.write(password + "\n")
+    
+    print(f"Generated {len(passwords)} passwords and saved to passwords.txt")
 
+if __name__ == "__main__":
+    main()
