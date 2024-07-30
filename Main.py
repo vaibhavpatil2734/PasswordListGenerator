@@ -1,20 +1,3 @@
-import itertools
-import random
-import string
-
-def get_user_input():
-    """ Get input from the user for password generation. """
-    name = input("Enter target name (or leave blank): ").strip()
-    birthdate = input("Enter target birthdate (or leave blank): ").strip()
-    surname = input("Enter target surname (or leave blank): ").strip()
-    company = input("Enter company name (or leave blank): ").strip()
-    platform = input("Enter platform name (or leave blank): ").strip()
-    keywords = input("Enter important keywords separated by commas (or leave blank): ").strip().split(',')
-
-    keywords = [kw.strip() for kw in keywords if kw.strip()]
-
-    return name, birthdate, surname, company, platform, keywords
-
 def generate_passwords(name, birthdate, surname, company, platform, keywords):
     """ Generate passwords based on user input. """
     passwords = set()
@@ -32,6 +15,8 @@ def generate_passwords(name, birthdate, surname, company, platform, keywords):
     if keywords:
         parts.extend(keywords)
 
+    print(f"Parts: {parts}")
+
     # Generate password variations
     for password in create_variations(parts):
         # Ensure password is valid
@@ -45,6 +30,7 @@ def generate_passwords(name, birthdate, surname, company, platform, keywords):
         if len(passwords) >= 10000:
             break
 
+    print(f"Generated passwords: {passwords}")
     return list(passwords)
 
 def main():
