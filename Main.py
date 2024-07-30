@@ -11,6 +11,8 @@ def get_user_input():
     platform = input("Enter platform name (or leave blank): ").strip()
     keywords = input("Enter important keywords separated by commas (or leave blank): ").strip().split(',')
 
+    keywords = [kw.strip() for kw in keywords if kw.strip()]
+
     return name, birthdate, surname, company, platform, keywords
 
 def generate_passwords(name, birthdate, surname, company, platform, keywords):
@@ -26,8 +28,9 @@ def generate_passwords(name, birthdate, surname, company, platform, keywords):
 
     # Create parts from user inputs
     parts = [name, birthdate, surname, company, platform]
+    parts = [part for part in parts if part]  # Remove empty strings
     if keywords:
-        parts.extend([kw.strip() for kw in keywords])
+        parts.extend(keywords)
 
     # Generate password variations
     for password in create_variations(parts):
