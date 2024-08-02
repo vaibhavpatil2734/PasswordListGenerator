@@ -1,5 +1,21 @@
-from Alphanumeric import Alphanumeric as Al
+from Alphanumeric.Alphanumeric import Alpha
 
-Al.work()
+def main():
+    print("############################################")
+    print("Greater data generates greater possibilities")
+    print("############################################")
 
-print('start your work')
+    print("# Select option Number #")
+    try:
+        operation = int(input("1. Alphanumeric 2. ...\n"))
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+        return
+
+    if operation == 1:
+        Alpha.specification()
+    else:
+        print("Choose the correct option")
+
+if __name__ == "__main__":
+    main()
