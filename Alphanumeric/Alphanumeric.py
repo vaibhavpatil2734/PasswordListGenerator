@@ -4,58 +4,50 @@ class Alpha:
     specificationCount = 0
 
     @classmethod
+    def get_valid_int(cls, prompt, valid_choices=None):
+        """Prompt for an integer input and validate it."""
+        while True:
+            try:
+                value = int(input(prompt))
+                if valid_choices and value not in valid_choices:
+                    print(f"Invalid choice. Please select one of the following: {valid_choices}")
+                else:
+                    return value
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+
+    @classmethod
+    def get_valid_date(cls, prompt):
+        """Prompt for a date input and validate it."""
+        while True:
+            date_str = input(prompt)
+            try:
+                return datetime.strptime(date_str, "%Y-%m-%d")
+            except ValueError:
+                print("Invalid date format. Please use YYYY-MM-DD.")
+
+    @classmethod
     def specification(cls):
-        # Prompt user for input
-        try:
-            passLen = int(input("Enter password length: "))
-        except ValueError:
-            print("Invalid input. Please enter a number.")
-            return
+        # Prompt user for input with validation
+        passLen = cls.get_valid_int("Enter password length: ")
 
         name = input("Enter target name: ")
 
-        try:
-            age = int(input("Enter target age: "))
-        except ValueError:
-            print("Invalid input. Please enter a number.")
-            return
+        age = cls.get_valid_int("Enter target age: ")
 
         print("Select target gender:")
         print("1. Male")
         print("2. Female")
-        try:
-            gender = int(input("Enter gender (1 or 2): "))
-            if gender not in [1, 2]:
-                print("Invalid input. Please select 1 for Male or 2 for Female.")
-                return
-        except ValueError:
-            print("Invalid input. Please enter a number.")
-            return
+        gender = cls.get_valid_int("Enter gender (1 or 2): ", valid_choices=[1, 2])
 
         print("Select target marital status:")
         print("1. Married")
         print("2. Unmarried")
-        try:
-            marital_status = int(input("Enter marital status (1 or 2): "))
-            if marital_status not in [1, 2]:
-                print("Invalid input. Please select 1 for Married or 2 for Unmarried.")
-                return
-        except ValueError:
-            print("Invalid input. Please enter a number.")
-            return
+        marital_status = cls.get_valid_int("Enter marital status (1 or 2): ", valid_choices=[1, 2])
 
-        birthdate = input("Enter target birthdate (YYYY-MM-DD): ")
-        try:
-            birthdate = datetime.strptime(birthdate, "%Y-%m-%d")
-        except ValueError:
-            print("Invalid date format. Please use YYYY-MM-DD.")
-            return
+        birthdate = cls.get_valid_date("Enter target birthdate (YYYY-MM-DD): ")
 
-        try:
-            num_children = int(input("Enter number of children: "))
-        except ValueError:
-            print("Invalid input. Please enter a number.")
-            return
+        num_children = cls.get_valid_int("Enter number of children: ")
 
         phone_number = input("Enter phone number (e.g., +1234567890): ")
         email_address = input("Enter email address: ")
@@ -70,8 +62,6 @@ class Alpha:
         print(f"Number of Children: {num_children}")
         print(f"Phone Number: {phone_number}")
         print(f"Email Address: {email_address}")
-
-        # You can now use this information to generate passwords or for other purposes
 
 # Example usage
 if __name__ == "__main__":
