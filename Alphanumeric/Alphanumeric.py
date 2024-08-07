@@ -28,40 +28,32 @@ class Alpha:
 
     @classmethod
     def specification(cls):
-        # Prompt user for input with validation
+        ######################################_Password_Specification_#############################################
         passLen = cls.get_valid_int("Enter password length: ")
-
+        passSpecial  = input("Enter Special Characters that we can use in pasword seperated by commas: ")
+        ######################################_Target_Specification_################################################
         name = input("Enter target name: ")
-
         age = cls.get_valid_int("Enter target age: ")
+        gender = cls.get_valid_int("Enter gender (1 or 2): ", valid_choices=[1, 2])
+        birthdate = cls.get_valid_date("Enter target birthdate (YYYY-MM-DD): ")
+        phone_number = input("Enter phone number (e.g., +1234567890): ")
+        email_address = input("Enter email address: ")
 
         print("Select target gender:")
         print("1. Male")
         print("2. Female")
-        gender = cls.get_valid_int("Enter gender (1 or 2): ", valid_choices=[1, 2])
 
         print("Select target marital status:")
         print("1. Married")
         print("2. Unmarried")
         marital_status = cls.get_valid_int("Enter marital status (1 or 2): ", valid_choices=[1, 2])
+        if(marital_status == 1):
+                    num_children = cls.get_valid_int("Enter number of children: ")
 
-        birthdate = cls.get_valid_date("Enter target birthdate (YYYY-MM-DD): ")
 
-        num_children = cls.get_valid_int("Enter number of children: ")
 
-        phone_number = input("Enter phone number (e.g., +1234567890): ")
-        email_address = input("Enter email address: ")
 
-        # Output collected information for confirmation
-        print("\nCollected Information:")
-        print(f"Name: {name}")
-        print(f"Age: {age}")
-        print(f"Gender: {'Male' if gender == 1 else 'Female'}")
-        print(f"Marital Status: {'Married' if marital_status == 1 else 'Unmarried'}")
-        print(f"Birthdate: {birthdate.strftime('%Y-%m-%d')}")
-        print(f"Number of Children: {num_children}")
-        print(f"Phone Number: {phone_number}")
-        print(f"Email Address: {email_address}")
+
 
 # Example usage
 if __name__ == "__main__":
