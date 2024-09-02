@@ -1,4 +1,5 @@
 from datetime import datetime
+import re  # To use regular expressions for email validation
 
 class Alpha:
     specificationCount = 0
@@ -27,34 +28,79 @@ class Alpha:
                 print("Invalid date format. Please use YYYY-MM-DD.")
 
     @classmethod
+    def get_valid_phone(cls, prompt):
+        """Prompt for a valid phone number."""
+        while True:
+            phone_number = input(prompt)
+            if re.match(r"^\+\d{1,15}$", phone_number):
+                return phone_number
+            else:
+                print("Invalid phone number format. Please use the format +1234567890.")
+
+    @classmethod
+    def get_valid_email(cls, prompt):
+        """Prompt for a valid email address."""
+        while True:
+            email = input(prompt)
+            if re.match(r"[^@]+@[^@]+\.[^@]+", email):
+                return email
+            else:
+                print("Invalid email format. Please enter a valid email address.")
+
+    @classmethod
     def specification(cls):
         ######################################_Password_Specification_#############################################
         print("# Enter Following Password Specifications #")
-        passLen = cls.get_valid_int("Enter password length: ")
-        passSpecial  = input("Enter Special Characters that we can use in pasword seperated by commas: ")
+        passLen = cls.get_valid_int("Enter password length (must be a number): ")
+        passSpecial = input("Enter special characters that can be used in the password, separated by commas: ")
+        
         ######################################_Target_Specification_################################################
         name = input("Enter target name: ")
         age = cls.get_valid_int("Enter target age: ")
-        gender = cls.get_valid_int("Enter gender (1 or 2): ", valid_choices=[1, 2])
-        birthdate = cls.get_valid_date("Enter target birthdate (YYYY-MM-DD): ")
-        phone_number = input("Enter phone number (e.g., +1234567890): ")
-        email_address = input("Enter email address: ")
-
+        
         print("Select target gender:")
         print("1. Male")
         print("2. Female")
+        gender = cls.get_valid_int("Enter gender (1 or 2): ", valid_choices=[1, 2])
+        
+        birthdate = cls.get_valid_date("Enter target birthdate (YYYY-MM-DD): ")
+        phone_number = cls.get_valid_phone("Enter phone number (e.g., +1234567890): ")
+        email_address = cls.get_valid_email("Enter email address: ")
 
         print("Select target marital status:")
         print("1. Married")
         print("2. Unmarried")
         marital_status = cls.get_valid_int("Enter marital status (1 or 2): ", valid_choices=[1, 2])
-        if(marital_status == 1):
-                    num_children = cls.get_valid_int("Enter number of children: ")
+        
+        num_children = 0  # Initialize to zero or None, assuming this may not apply
+        if marital_status == 1:
+            num_children = cls.get_valid_int("Enter number of children: ")
 
+        # Save or process the data here, e.g., write to a file or database
+        cls.save_specification({
+            'name': name,
+            'age': age,
+            'gender': gender,
+            'birthdate': birthdate.strftime("%Y-%m-%d"),
+            'phone_number': phone_number,
+            'email_address': email_address,
+            'marital_status': marital_status,
+            'num_children': num_children,
+            'passLen': passLen,
+            'passSpecial': passSpecial
+        })
+        
+        print("Specifications have been recorded.")
 
-
-
-#its time to start the actual coding
+    @classmethod
+    def save_specification(cls, data):
+        """
+        Saves the specification data to a file.
+        This could be expanded to save to a database or other storage.
+        """
+        with open("specifications.txt", "a") as f:
+            f.write(str(data) + "\n")
+        print("Specifications saved successfully.")
 
 # Example usage
 if __name__ == "__main__":
