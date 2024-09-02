@@ -29,6 +29,7 @@ class Alpha:
     @classmethod
     def specification(cls):
         ######################################_Password_Specification_#############################################
+        print("# Enter Following Password Specifications #")
         passLen = cls.get_valid_int("Enter password length: ")
         passSpecial  = input("Enter Special Characters that we can use in pasword seperated by commas: ")
         ######################################_Target_Specification_################################################
@@ -53,7 +54,7 @@ class Alpha:
 
 
 
-
+#its time to start the actual coding
 
 # Example usage
 if __name__ == "__main__":
