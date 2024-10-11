@@ -200,8 +200,30 @@ class Alpha:
 
 if __name__ == "__main__":
     
-    Alpha.target_Specification()
+    # Alpha.target_Specification()
+   # Alpha.suspect_Specification()
+   import ast
 
+with open("suspect_specifications.txt", "r") as f:
+    # Read the content of the file
+    content = f.read()
+
+    # Convert the string content to a dictionary using ast.literal_eval
+    data = ast.literal_eval(content)
+
+    # Traverse and print keys and values recursively
+    def print_keys_values(d, indent=0):
+        for key, value in d.items():
+            if isinstance(value, dict):  # If value is a nested dictionary, recurse
+                print("  " * indent + f"{key}:")
+                print_keys_values(value, indent + 1)
+            else:
+                print("  " * indent + f"{key}: {value}")
+
+    # Call the function to print keys and values
+    print_keys_values(data)
+
+    # input_One = input("If you want to add target specifications, enter 'y': ")
     # input_Two = input("If you want to add suspect specifications, type 'suspect', otherwise type 'exit': ")
     # if input_Two.lower() == 'suspect':
     #     Alpha.suspect_Specification()
