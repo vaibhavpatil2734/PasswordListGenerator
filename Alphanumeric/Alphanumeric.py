@@ -70,16 +70,24 @@ class Alpha:
             sr_No += 1
         return items
 
+
+#################################################################################################################
+######################################_Password_Specification_################################################
+#################################################################################################################
+
     @classmethod
     def password_Specification(cls):
-        ######################################_Password_Specification_#############################################
         print("# Enter Following Password Specifications #")
         passLen = cls.get_valid_int("Enter password length (must be a number): ")
         passSpecial = input("Enter special characters that can be used in the password, separated by commas: ")
 
+
+#################################################################################################################
+######################################_Target_Specification_################################################
+#################################################################################################################
+
     @classmethod
     def target_Specification(cls):
-        ######################################_Target_Specification_################################################
         print("## Enter Following Target Specifications ##")
         print("You can skip any field by entering '-' or type 'exit' to stop.")
 
@@ -129,9 +137,14 @@ class Alpha:
 
         print("Target specifications have been recorded.")
 
+
+#################################################################################################################
+######################################_Suspect_Specification_################################################
+#################################################################################################################
+
     @classmethod
     def suspect_Specification(cls):
-        ######################################_Suspect_Specification_################################################
+
         print("## Enter Following Suspect Specifications ##")
         print("You can skip any field by entering '-' or type 'exit' to stop.")
 
@@ -144,9 +157,8 @@ class Alpha:
         }
 
         ### Level 2 ###
-        birthdate = cls.get_valid_date("Enter suspect birthdate (YYYY-MM-DD) or '-' to skip: ")
         level_2 = {
-            'birthdate': birthdate.strftime("%Y-%m-%d") if birthdate else None,
+            'birth_date':cls.input(),
             'special_dates': cls.get_multiple_inputs("Enter special date (e.g., marriage or achievement date) (or '-' to skip)"),
             'phone_numbers': cls.get_multiple_inputs("Enter phone number (e.g., +1234567890) (or '-' to skip)"),
             'vehicle_numbers': cls.get_multiple_inputs("Enter vehicle number (or '-' to skip)"),
@@ -192,36 +204,68 @@ class Alpha:
         print(f"Specifications saved successfully to {filename}.")
 
 
+
 #################################################################################################################
 #################################################### DS & Generator #############################################################
+#################################################################################################################
 
-# now i have to do Ammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    @classmethod
+    def generator_Atom(cls):
+        """Extract and store level-wise values from the file into arrays."""
+        level_1_values = []
+        level_2_values = []
+        level_3_values = []
+        level_4_values = []
+
+        with open("target_specifications.txt", "r") as file:
+            data = eval(file.read())  # Reading the dictionary data from the file
+
+        for key, level_data in data.items():
+            if key == "Level 1":
+                for value in level_data.values():
+                    if isinstance(value, list):
+                        level_1_values.extend(value)
+                    elif value:
+                        level_1_values.append(value)
+
+            elif key == "Level 2":
+                for value in level_data.values():
+                    if isinstance(value, list):
+                        level_2_values.extend(value)
+                    elif value:
+                        level_2_values.append(value)
+
+            elif key == "Level 3":
+                for value in level_data.values():
+                    if isinstance(value, list):
+                        level_3_values.extend(value)
+                    elif value:
+                        level_3_values.append(value)
+
+            elif key == "Level 4":
+                for value in level_data.values():
+                    if isinstance(value, list):
+                        level_4_values.extend(value)
+                    elif value:
+                        level_4_values.append(value)
+
+######################################_Templates_################################################
+        print(level_3_values)
+
+
+        
+  
+
+
+
 
 
 if __name__ == "__main__":
     
     # Alpha.target_Specification()
    # Alpha.suspect_Specification()
-   import ast
-
-with open("suspect_specifications.txt", "r") as f:
-    # Read the content of the file
-    content = f.read()
-
-    # Convert the string content to a dictionary using ast.literal_eval
-    data = ast.literal_eval(content)
-
-    # Traverse and print keys and values recursively
-    def print_keys_values(d, indent=0):
-        for key, value in d.items():
-            if isinstance(value, dict):  # If value is a nested dictionary, recurse
-                print("  " * indent + f"{key}:")
-                print_keys_values(value, indent + 1)
-            else:
-                print("  " * indent + f"{key}: {value}")
-
-    # Call the function to print keys and values
-    print_keys_values(data)
+    Alpha.generator_Atom()
+  
 
     # input_One = input("If you want to add target specifications, enter 'y': ")
     # input_Two = input("If you want to add suspect specifications, type 'suspect', otherwise type 'exit': ")

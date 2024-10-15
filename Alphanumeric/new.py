@@ -1,96 +1,51 @@
-list = []
-names = []
-temp_names = []
-phoneNo = ''
+import random
+import string
 
-# Getting Date of Birth in correct format
-dob = input("Date of birth (DDMMYYYY): ")
-if len(dob) == 8:
-    day = dob[:2]
-    month = dob[2:4]
-    year = dob[4:]
-else:
-    print("Wrong format for DOB, make sure it is 8 numbers in DDMMYYYY")
-    exit()
+# Sample data for generating passwords
+names = ["Alice", "Bob", "Charlie", "David", "Eve"]
+birth_years = ["1985", "1990", "1995", "2000", "2005"]
+favorite_numbers = ["7", "42", "13", "99", "21"]
+special_chars = ["!", "@", "#", "$", "%", "&", "*"]
 
-# Getting phone number input
-phoneNo = input("Enter phone number: ")
+# Password templates (distinct)
+templates = [
+    "{name}{birth_year}",                  # Example: Alice1985
+    "{name}{special_char}{favorite_number}", # Example: Bob!42
+    "{favorite_number}{name}{birth_year}",   # Example: 7Charlie1995
+    "{birth_year}{favorite_number}{special_char}", # Example: 200521$
+    "{name}{birth_year}{special_char}",     # Example: David1990#
+    "{favorite_number}{special_char}{name}", # Example: 99*Eve
+    "{name}@{favorite_number}",              # Example: Charlie@13
+    "{birth_year}_{name}",                   # Example: 1995_Bob
+    "{name}{special_char}{name}",            # Example: Alice!Alice
+    "{favorite_number}{birth_year}",         # Example: 42_2000
+]
 
-# Function to input important words
-def ListOfImportantWords():
-    print("Please provide the following details:")
-    names.append(input("First name: "))
-    names.append(input("Surname: "))
-    names.append(input("Nickname: "))
-    print("\n")
-    names.append(input("Partner's name: "))
-    names.append(input("Partner's Nickname: "))
-    print("\n")
-    names.append(input("Pet's name: "))
-    names.append(input("Company name: "))
-    print("\n")
-    names.append(input("Child's name: "))
-    names.append(input("Child's nickname: "))
-    print("\n")
-    names.append(input("City: "))
-    names.append(input("Country: "))
-    names.append(input("Favourite colour: "))
-    print("\nEnter all other keywords (press Enter twice to finish):")
-    
-    # Taking multiple other keywords from user
-    while True:
-        inp = input()
-        if inp == '':
-            break
-        names.append(inp)
+def generate_passwords(num_passwords):
+    password_list = []
+    for _ in range(num_passwords):
+        # Choose a random template
+        template = random.choice(templates)
 
-    # Remove empty strings from names
-    while '' in names: 
-        names.remove('')
+        # Fill the template with random data
+        password = template.format(
+            name=random.choice(names),
+            birth_year=random.choice(birth_years),
+            favorite_number=random.choice(favorite_numbers),
+            special_char=random.choice(special_chars)
+        )
+        password_list.append(password)
 
-# Function to generate permutations of word with upper and lower case combinations
-def permute(inp):
-    n = len(inp)
-    mx = 1 << n
-    inp = inp.lower()
-    
-    for i in range(mx):
-        combination = [k for k in inp]
-        for j in range(n):
-            if ((i >> j) & 1) == 1:
-                combination[j] = inp[j].upper()
-        temp = ""
-        for char in combination:
-            temp += char
-        temp_names.append(temp)
+    return password_list
 
-# Function to create wordlist using names and important information
-def WordListCreator(list):
-    for word in names:
-        for i in range(0, len(word) + 1):
-            list.append(word[:i] + day + word[i:])
-            list.append(word[:i] + month + word[i:])
-            list.append(word[:i] + year + word[i:])
-            if len(year) == 4:
-                list.append(word[:i] + year[2:] + word[i:])
-            list.append(word[:i] + phoneNo + word[i:])
-    
-    # Adding the phone number itself to the wordlist if available
-    if phoneNo:
-        list.append(phoneNo)
+def main():
+    num_passwords = 10  # Number of passwords to generate
+    passwords = generate_passwords(num_passwords)
 
-# Function to write the wordlist to a file
-def WriteToFile(list):
-    with open('wordlist.txt', 'w') as f:
-        for item in list:
-            f.write("%s\n" % item)
+    # Print the generated passwords
+    print("Generated Passwords:")
+    for idx, pwd in enumerate(passwords):
+        print(f"{idx + 1}: {pwd}")
 
-# Main block to call functions sequentially
 if __name__ == "__main__":
-    ListOfImportantWords()  # Gather important words and names
-    for name in names:
-        permute(name)        # Generate permutations of each name
-    names = names + temp_names  # Combine original names with permutations
-    WordListCreator(list)    # Create the final wordlist
-    WriteToFile(list)        # Write the wordlist to a file
-    print("Wordlist has been successfully generated and saved to 'wordlist.txt'")
+    main()
