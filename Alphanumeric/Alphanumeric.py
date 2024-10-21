@@ -250,9 +250,22 @@ class Alpha:
                         level_4_values.append(value)
 
 ######################################_Templates_################################################
-        print(level_3_values)
+        level_2_PD =[]
+        
+        cleandata=[]
+        for i in level_2_values:
+            value = re.sub('-','',i)
+            cleandata.append(value)
 
+        for i in cleandata:
+            for length in range(1, len(i) + 1):  # Length from 1 to length of i
+                for start in range(len(i) - length + 1):  # Starting index for the substring
+                    substring = i[start:start + length]  # Get the substring of the specified length
+                    level_2_PD.append(substring)
+            break
 
+            
+        print(level_2_PD)
         
   
 
