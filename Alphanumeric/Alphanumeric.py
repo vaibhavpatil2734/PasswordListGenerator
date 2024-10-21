@@ -1,6 +1,7 @@
 from datetime import datetime
 import re  # To use regular expressions for email validation
 import uuid  # To generate unique identifiers
+import json
 
 class Alpha:
     specificationCount = 0
@@ -249,7 +250,8 @@ class Alpha:
                     elif value:
                         level_4_values.append(value)
 
-######################################_Templates_################################################
+######################################_Data_processing_################################################
+
         level_2_PD =[]
         
         cleandata=[]
@@ -262,10 +264,18 @@ class Alpha:
                 for start in range(len(i) - length + 1):  # Starting index for the substring
                     substring = i[start:start + length]  # Get the substring of the specified length
                     level_2_PD.append(substring)
-            break
+            
+        file_name = 'processedData.json'
+        data_to_store={
+            "level_2_values":level_2_PD
+        }
+        # Write the entire array to the file in JSON format
+        with open(file_name, 'w') as file:
+            json.dump(data_to_store, file)
 
             
-        print(level_2_PD)
+######################################_Templates_################################################
+
         
   
 
