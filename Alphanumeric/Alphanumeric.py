@@ -263,12 +263,13 @@ class Alpha:
             for length in range(1, len(i) + 1):  # Length from 1 to length of i
                 for start in range(len(i) - length + 1):  # Starting index for the substring
                     substring = i[start:start + length]  # Get the substring of the specified length
-                    level_2_PD.append(substring)
-            
+                    if substring not in level_2_PD:  # Check if the substring is already in the list
+                        level_2_PD.append(substring)
+
         file_name = 'processedData.json'
         data_to_store={
             "level_2_values":level_2_PD
-        }
+        } 
         # Write the entire array to the file in JSON format
         with open(file_name, 'w') as file:
             json.dump(data_to_store, file)
