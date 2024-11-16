@@ -2,29 +2,29 @@
 
 ## 🔐 About
 
-The **Password List Generator** is a powerful tool designed to create customized lists of potential passwords based on user-provided information. These lists are used for **security testing**, **penetration testing**, and **brute-force attack simulations** to evaluate password strength. By analyzing common patterns, personal data, and customizable rules, this tool generates a range of possible passwords for testing.
+The **Password List Generator** is a Python-based tool designed to create customized lists of potential passwords based on user-provided information. These lists are used for **security testing**, **penetration testing**, and **brute-force attack simulations** to evaluate the strength of passwords. 
 
-⚠️ **In Progress**: This tool is under active development. Stay tuned for more features and improvements!
+⚠️ **In Progress**: The tool is still under active development. Features and functionalities are being added regularly. Please stay tuned for future updates!
 
 ---
 
 ## 🚀 Features
 
-- **Customizable Parameters**: Generate password lists based on user input such as name, birthdate, location, etc.
-- **Brute-Force Ready**: The tool supports password lists for brute-force attack simulations.
+- **Customizable Parameters**: Generate password lists based on user inputs like name, birthdate, location, etc.
+- **Brute-Force Ready**: Generate passwords specifically for brute-force attack simulations.
 - **Supports Leet Mode**: Transform common words into leetspeak for more realistic password lists.
 - **Special Characters**: Option to include numbers, symbols, and uppercase letters for stronger password variations.
-- **Interactive Mode**: Step-by-step prompts make it easy for users to configure password generation.
+- **Interactive Mode**: Step-by-step prompts make it easy for users to configure and generate password lists.
 
 ---
 
 ## 🖼️ Project Preview
 
-Here's a quick look at what the tool looks like in action:
+Here's a quick look at the tool in action (work in progress):
 
-![Password List Generator](https://example.com/your-image.png)
+![Password List Generator](https://www.kindpng.com/picc/m/48-480328_password-cartoon-png-image-transparent-background-password-icon.png)
 
-*Note: The project is still a work in progress.*
+*Note: This project is still in development. Some features may not be fully functional.*
 
 ---
 
@@ -42,14 +42,14 @@ Here's a quick look at what the tool looks like in action:
 
 3. Install the required dependencies:
     ```bash
-    npm install
+    pip install -r requirements.txt
     ```
 
 ---
 
 ## 🏁 Usage
 
-Once installed, you can run the tool with the following command:
+Once installed, you can run the Python script with the following command:
 
 ```bash
-node generatePasswords.js
+python generatePasswords.py
