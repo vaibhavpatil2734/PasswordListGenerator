@@ -11,8 +11,8 @@ class Alpha:
         """Prompt for an integer input and validate it."""
         while True:
             value = input(prompt)
-            if value.lower() in ["exit", '-']:
-                return None  # Treat '-' and 'exit' as None
+            if value == "":  # Skip the field if the user presses "Enter"
+                return None
             try:
                 value = int(value)
                 if valid_choices and value not in valid_choices:
@@ -23,64 +23,56 @@ class Alpha:
                 print("Invalid input. Please enter a number.")
 
     @classmethod
-    def get_valid_date(cls, prompt):
-        """Prompt for a date input and validate it."""
+    def get_valid_date_parts(cls):
+        """Prompt for year, month, and day separately, and validate the date."""
         while True:
-            date_str = input(prompt)
-            if date_str.lower() in ["exit", '-']:
-                return None  # Treat '-' and 'exit' as None
             try:
-                return datetime.strptime(date_str, "%Y-%m-%d")
+                year = input("Enter birth year (YYYY) or press Enter to skip: ")
+                if year == "":  # Skip if no input
+                    return None
+
+                year = int(year)
+                
+                month = input("Enter birth month (MM) or press Enter to skip: ")
+                if month == "":
+                    return None
+                month = int(month)
+
+                day = input("Enter birth day (DD) or press Enter to skip: ")
+                if day == "":
+                    return None
+                day = int(day)
+
+                return datetime(year, month, day)  # Combine the parts into a datetime object
+
             except ValueError:
-                print("Invalid date format. Please use YYYY-MM-DD.")
+                print("Invalid date. Please enter a valid birth year, month, and day.")
 
     @classmethod
-    def get_valid_phone(cls, prompt):
-        """Prompt for a valid phone number."""
-        while True:
-            phone_number = input(prompt)
-            if phone_number.lower() in ["exit", '-']:
-                return None  # Treat '-' and 'exit' as None
-            if re.match(r"^\+\d{1,15}$", phone_number):
-                return phone_number
-            else:
-                print("Invalid phone number format. Please use the format +1234567890.")
+    def get_name_parts(cls):
+        """Prompt for first, middle, and last name."""
+        first_name = input("Enter first name (or press Enter to skip): ") or None
+        middle_name = input("Enter middle name (or press Enter to skip): ") or None
+        last_name = input("Enter last name (or press Enter to skip): ") or None
 
-    @classmethod
-    def get_valid_email(cls, prompt):
-        """Prompt for a valid email address."""
-        while True:
-            email = input(prompt)
-            if email.lower() in ["exit", '-']:
-                return None  # Treat '-' and 'exit' as None
-            if re.match(r"[^@]+@[^@]+\.[^@]+", email):
-                return email
-            else:
-                print("Invalid email format. Please enter a valid email address.")
+        return {
+            'first_name': first_name,
+            'middle_name': middle_name,
+            'last_name': last_name
+        }
 
     @classmethod
     def get_multiple_inputs(cls, prompt):
-        """Prompt for multiple inputs until 'exit' or '-' is entered."""
+        """Prompt for multiple inputs until 'Enter' is pressed without input."""
         items = []
         sr_No = 1
         while True:
-            item = input(f"{prompt} #{sr_No}: ")
-            if item.lower() in ["exit", '-']:
+            item = input(f"{prompt} #{sr_No} (or press Enter to skip): ")
+            if item == "":  # Stop if user presses "Enter" without input
                 break
             items.append(item)
             sr_No += 1
         return items
-
-
-#################################################################################################################
-######################################_Password_Specification_################################################
-#################################################################################################################
-
-    @classmethod
-    def password_Specification(cls):
-        print("# Enter Following Password Specifications #")
-        passLen = cls.get_valid_int("Enter password length (must be a number): ")
-        passSpecial = input("Enter special characters that can be used in the password, separated by commas: ")
 
 
 #################################################################################################################
@@ -90,42 +82,42 @@ class Alpha:
     @classmethod
     def target_Specification(cls):
         print("## Enter Following Target Specifications ##")
-        print("You can skip any field by entering '-' or type 'exit' to stop.")
+        print("You can skip any field by pressing 'Enter'.")
 
         ### Level 1 ###
         level_1 = {
-            'name': input("Enter target name (or '-' to skip): ") or None,
-            'nicknames': cls.get_multiple_inputs("Enter nickname (or '-' to skip)")
+            'name': cls.get_name_parts(),
+            'nicknames': cls.get_multiple_inputs("Enter nickname")
         }
 
         ### Level 2 ###
-        birthdate = cls.get_valid_date("Enter target birthdate (YYYY-MM-DD) or '-' to skip: ")
+        birthdate = cls.get_valid_date_parts()  # Take year, month, day separately
         level_2 = {
             'birthdate': birthdate.strftime("%Y-%m-%d") if birthdate else None,
-            'special_dates': cls.get_multiple_inputs("Enter special date (e.g., marriage or achievement date) (or '-' to skip)"),
-            'phone_numbers': cls.get_multiple_inputs("Enter phone number (e.g., +1234567890) (or '-' to skip)"),
-            'vehicle_numbers': cls.get_multiple_inputs("Enter vehicle number (or '-' to skip)"),
-            'house_number': input("Enter house number (or '-' to skip): ") or None,
-            'special_identity_numbers': cls.get_multiple_inputs("Enter special identity number (e.g., roll number, emp number) (or '-' to skip)")
+            'special_dates': cls.get_multiple_inputs("Enter special date (e.g., marriage or achievement date)"),
+            'phone_numbers': cls.get_multiple_inputs("Enter phone number (e.g., +1234567890)"),
+            'vehicle_numbers': cls.get_multiple_inputs("Enter vehicle number"),
+            'house_number': input("Enter house number (or press Enter to skip): ") or None,
+            'special_identity_numbers': cls.get_multiple_inputs("Enter special identity number (e.g., roll number, emp number)")
         }
 
         ### Level 3 ###
         level_3 = {
-            'email_addresses': cls.get_multiple_inputs("Enter email address (or '-' to skip)"),
-            'social_media_usernames': cls.get_multiple_inputs("Enter social media account username (or '-' to skip)"),
-            'game_ids': cls.get_multiple_inputs("Enter game ID (or '-' to skip)")
+            'email_addresses': cls.get_multiple_inputs("Enter email address"),
+            'social_media_usernames': cls.get_multiple_inputs("Enter social media account username"),
+            'game_ids': cls.get_multiple_inputs("Enter game ID")
         }
 
         ### Level 4 ###
         level_4 = {
-            'work_areas': cls.get_multiple_inputs("Enter work area (e.g., company name, school name, college name) (or '-' to skip)"),
-            'favorite_movies': cls.get_multiple_inputs("Enter favorite movie (or '-' to skip)"),
-            'favorite_sports': cls.get_multiple_inputs("Enter favorite sport (or '-' to skip)"),
-            'favorite_superstars': input("Enter favorite superstar or celebrity (or '-' to skip): ") or None,
-            'favorite_video_games': cls.get_multiple_inputs("Enter favorite video game (or '-' to skip)"),
-            'favorite_singers': cls.get_multiple_inputs("Enter favorite singer (or '-' to skip)"),
-            'hobbies': cls.get_multiple_inputs("Enter hobbies (or '-' to skip)"),
-            'achievements': cls.get_multiple_inputs("Enter achievements (or '-' to skip)")
+            'work_areas': cls.get_multiple_inputs("Enter work area (e.g., company name, school name, college name)"),
+            'favorite_movies': cls.get_multiple_inputs("Enter favorite movie"),
+            'favorite_sports': cls.get_multiple_inputs("Enter favorite sport"),
+            'favorite_superstars': input("Enter favorite superstar or celebrity (or press Enter to skip): ") or None,
+            'favorite_video_games': cls.get_multiple_inputs("Enter favorite video game"),
+            'favorite_singers': cls.get_multiple_inputs("Enter favorite singer"),
+            'hobbies': cls.get_multiple_inputs("Enter hobbies"),
+            'achievements': cls.get_multiple_inputs("Enter achievements")
         }
 
         # Save the dictionaries
@@ -147,43 +139,44 @@ class Alpha:
     def suspect_Specification(cls):
 
         print("## Enter Following Suspect Specifications ##")
-        print("You can skip any field by entering '-' or type 'exit' to stop.")
+        print("You can skip any field by pressing 'Enter'.")
 
         suspect_id = str(uuid.uuid4())  # Generate a unique identifier for each suspect
 
         ### Level 1 ###
         level_1 = {
-            'name': input("Enter suspect name (or '-' to skip): ") or None,
-            'nicknames': cls.get_multiple_inputs("Enter nickname (or '-' to skip)")
+            'name': cls.get_name_parts(),
+            'nicknames': cls.get_multiple_inputs("Enter nickname")
         }
 
         ### Level 2 ###
+        birthdate = cls.get_valid_date_parts()  # Take year, month, day separately
         level_2 = {
-            'birth_date':cls.input(),
-            'special_dates': cls.get_multiple_inputs("Enter special date (e.g., marriage or achievement date) (or '-' to skip)"),
-            'phone_numbers': cls.get_multiple_inputs("Enter phone number (e.g., +1234567890) (or '-' to skip)"),
-            'vehicle_numbers': cls.get_multiple_inputs("Enter vehicle number (or '-' to skip)"),
-            'house_number': input("Enter house number (or '-' to skip): ") or None,
-            'special_identity_numbers': cls.get_multiple_inputs("Enter special identity number (e.g., roll number, emp number) (or '-' to skip)")
+            'birthdate': birthdate.strftime("%Y-%m-%d") if birthdate else None,
+            'special_dates': cls.get_multiple_inputs("Enter special date (e.g., marriage or achievement date)"),
+            'phone_numbers': cls.get_multiple_inputs("Enter phone number (e.g., +1234567890)"),
+            'vehicle_numbers': cls.get_multiple_inputs("Enter vehicle number"),
+            'house_number': input("Enter house number (or press Enter to skip): ") or None,
+            'special_identity_numbers': cls.get_multiple_inputs("Enter special identity number (e.g., roll number, emp number)")
         }
 
         ### Level 3 ###
         level_3 = {
-            'email_addresses': cls.get_multiple_inputs("Enter email address (or '-' to skip)"),
-            'game_ids': cls.get_multiple_inputs("Enter game ID (or '-' to skip)")
+            'email_addresses': cls.get_multiple_inputs("Enter email address"),
+            'game_ids': cls.get_multiple_inputs("Enter game ID")
         }
 
         ### Level 4 ###
         level_4 = {
-            'favorite_movies': cls.get_multiple_inputs("Enter favorite movie (or '-' to skip)"),
-            'favorite_sports': cls.get_multiple_inputs("Enter favorite sport (or '-' to skip)"),
-            'favorite_superstars': input("Enter favorite superstar or celebrity (or '-' to skip): ") or None,
-            'favorite_video_games': cls.get_multiple_inputs("Enter favorite video game (or '-' to skip)"),
-            'social_media_usernames': cls.get_multiple_inputs("Enter social media account username (or '-' to skip)"),
-            'favorite_singers': cls.get_multiple_inputs("Enter favorite singer (or '-' to skip)"),
-            'hobbies': cls.get_multiple_inputs("Enter hobbies (or '-' to skip)"),
-            'achievements': cls.get_multiple_inputs("Enter achievements (or '-' to skip)"),
-            'work_areas': cls.get_multiple_inputs("Enter work area (e.g., company name, school name, college name) (or '-' to skip)")
+            'favorite_movies': cls.get_multiple_inputs("Enter favorite movie"),
+            'favorite_sports': cls.get_multiple_inputs("Enter favorite sport"),
+            'favorite_superstars': input("Enter favorite superstar or celebrity (or press Enter to skip): ") or None,
+            'favorite_video_games': cls.get_multiple_inputs("Enter favorite video game"),
+            'social_media_usernames': cls.get_multiple_inputs("Enter social media account username"),
+            'favorite_singers': cls.get_multiple_inputs("Enter favorite singer"),
+            'hobbies': cls.get_multiple_inputs("Enter hobbies"),
+            'achievements': cls.get_multiple_inputs("Enter achievements"),
+            'work_areas': cls.get_multiple_inputs("Enter work area (e.g., company name, school name, college name)")
         }
 
         # Save the dictionaries
@@ -203,6 +196,7 @@ class Alpha:
         with open(filename, "a") as f:
             f.write(str(data) + "\n")
         print(f"Specifications saved successfully to {filename}.")
+
 
 
 
@@ -286,7 +280,7 @@ class Alpha:
 
 if __name__ == "__main__":
     
-    # Alpha.target_Specification()
+    Alpha.target_Specification()
    # Alpha.suspect_Specification()
     Alpha.generator_Atom()
   
