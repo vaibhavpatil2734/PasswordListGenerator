@@ -60,23 +60,26 @@ Cracking Biometric Authentication Systems for Security Purposes
     - Participate in cybersecurity forums and conferences.
     - Practice ethical hacking in controlled environments and study case studies.
 """
-1. {name}@123
-2. {Name}@123
-3. {NaMe}@123
-4. {NAME}@123
-5. {name}@!123
-6. {Name}_123
-7. {NaMe}#123
-8. {NAME}2024
-9. 123{name}!
-10. @123{Name}
-11. {name}_2024
-12. {Name}!@123
-13. {NaMe}123@
-14. {NAME}@#123
-15. @!{name}123
-16. #2024{Name}
-17. {name}{123}
-18. 2024_{NaMe}
-19. 123{Name}@!
-20. {NAME}!_123
+
+
+# createng templates demo
+# 1. {name}@123
+# 2. {Name}@123
+# 3. {NaMe}@123
+# 4. {NAME}@123
+# 5. {name}@!123
+# 6. {Name}_123
+# 7. {NaMe}#123
+# 8. {NAME}2024
+# 9. 123{name}!
+# 10. @123{Name}
+# 11. {name}_2024
+# 12. {Name}!@123
+# 13. {NaMe}123@
+# 14. {NAME}@#123
+# 15. @!{name}123
+# 16. #2024{Name}
+# 17. {name}{123}
+# 18. 2024_{NaMe}
+# 19. 123{Name}@!
+# 20. {NAME}!_123
