@@ -5,7 +5,7 @@ def inputText():
         data = input("Enter text : ")
         if data == "$":
             break
-        with open("TheAlphanumeric/inputData/targetDataInText.txt", "a") as file:
+        with open("TheAlphanumeric/phaseOne/inputData/targetDataInText.txt", "a") as file:
             file.write(data)
             file.write("\n")
 
@@ -16,7 +16,7 @@ def inputNumber():
         data = input("Enter number : ")
         if data == "$":
             break
-        with open("TheAlphanumeric/inputData/targetDataInNumber.txt", "a") as file :
+        with open("TheAlphanumeric/phaseOne/inputData/targetDataInNumber.txt", "a") as file :
             file.write(data)
             file.write("\n")
     
