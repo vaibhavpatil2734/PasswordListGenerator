@@ -2,7 +2,7 @@ import os
 
 def TheGenrator():
     input_path = os.path.join("TheAlphanumeric", "phaseTwo", "comboGeneratedData", "comboGeneratedDataText.txt")
-    output_path = os.path.join(os.path.dirname(__file__), "TheAlphanumeric", "phaseThree", "inputData", "formattedOutput.txt")
+    output_path = os.path.join("TheAlphanumeric", "phaseThree", "row", "rowText.txt")
 
     with open(input_path, "r") as infile:
         lines = infile.readlines()
@@ -11,43 +11,24 @@ def TheGenrator():
         for line in lines:
             line = line.strip()
             if not line:
-                continue  
-
-            title_case = line.title()
-
-            upper_case = line.upper()
-
-            sentence_case = line.capitalize()
+                continue
 
             words = line.split()
-            if words:
+            # Always write original
+            outfile.write(f"{line}\n")
+            
+            # Only write custom_case if more than 1 word
+            if len(words) > 1:
                 custom_case = words[0].lower() + ' ' + ' '.join(word.capitalize() for word in words[1:])
-            else:
-                custom_case = ""
+                outfile.write(f"{custom_case}\n")
 
-            outfile.write(f"Original: {line}\n")
-            outfile.write(f"Title Case: {title_case}\n")
-            outfile.write(f"UPPERCASE: {upper_case}\n")
-            outfile.write(f"Sentence Case: {sentence_case}\n")
-            outfile.write(f"Custom Case: {custom_case}\n")
-            outfile.write("-" * 40 + "\n") 
+            # Always write title case and upper case
+            outfile.write(f"{line.title()}\n")
+            outfile.write(f"{line.upper()}\n")
+
+            # Only write sentence case if more than 1 word
+            if len(words) > 1:
+                outfile.write(f"{line.capitalize()}\n")
 
 if __name__ == "__main__":
     TheGenrator()
-think...
-think...
-think...
-think...
-think...
-think...
-think...
-think...
-think...
-think...
-think...
-think...
-think...
-think...
-think...
-think...
-think...
