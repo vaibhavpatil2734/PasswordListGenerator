@@ -10,15 +10,15 @@ def inputNumberComboGenerator():
     input_path = os.path.join(
         BASE_DIR,
         "..",
-        "phaseOne",
-        "inputData",
-        "targetDataInNumber.txt"
+        "phase1",
+        "phase1Data",
+        "phase1TargetDataInNumber.txt"
     )
 
     output_path = os.path.join(
         BASE_DIR,
-        "comboGeneratedData",
-        "comboGeneratedDataNumber.txt"
+        "phase2Data",
+        "phase2ComboGeneratedDataNumber.txt"
     )
 
     with open(input_path, "r") as f, open(output_path, "a") as file:
@@ -40,15 +40,15 @@ def inputTextComboGenerator():
     input_path = os.path.join(
         BASE_DIR,
         "..",
-        "phaseOne",
-        "inputData",
-        "targetCombinationalDataInText.txt"
+        "phase1",
+        "phase1Data",
+        "phase1TargetCombinationalDataInText.txt"
     )
 
     output_path = os.path.join(
         BASE_DIR,
-        "comboGeneratedData",
-        "comboGeneratedDataText.txt"
+        "phase2Data",
+        "phase2ComboGeneratedDataText.txt"
     )
 
     with open(input_path, "r", encoding="utf-8") as f, \
@@ -66,29 +66,6 @@ def inputTextComboGenerator():
 
             generated = set()
 
-            # Generate all possible combinations
-            # with all possible word orders.
-            #
-            # Example:
-            # vaibhav ramchandra patil
-            #
-            # vaibhav
-            # ramchandra
-            # patil
-            #
-            # vaibhav ramchandra
-            # ramchandra vaibhav
-            # vaibhav patil
-            # patil vaibhav
-            # ramchandra patil
-            # patil ramchandra
-            #
-            # vaibhav ramchandra patil
-            # vaibhav patil ramchandra
-            # ramchandra vaibhav patil
-            # ramchandra patil vaibhav
-            # patil vaibhav ramchandra
-            # patil ramchandra vaibhav
 
             for r in range(1, length + 1):
 
@@ -107,7 +84,10 @@ def inputTextComboGenerator():
             # Keep each original input line isolated
             file.write("\n")
 
-
-if __name__ == "__main__":
+def phase2():
     inputNumberComboGenerator()
     inputTextComboGenerator()
+
+
+if __name__ == "__main__":
+    phase2()

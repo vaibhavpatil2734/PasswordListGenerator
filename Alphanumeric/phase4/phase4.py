@@ -9,23 +9,23 @@ def generate_passwords():
     # Input paths
     input_path_number = os.path.join(
         BASE_DIR,
-        "phaseTwo",
-        "comboGeneratedData",
-        "comboGeneratedDataNumber.txt"
+        "phase2",
+        "phase2Data",
+        "phase2ComboGeneratedDataNumber.txt"
     )
 
     input_path_string = os.path.join(
         BASE_DIR,
-        "phaseThree",
-        "row",
-        "rowText.txt"
+        "phase3",
+        "phase3Data",
+        "phase3SubtitutedDataText.txt"
     )
 
     # Output directory
     output_dir = os.path.join(
         BASE_DIR,
-        "phaseFour",
-        "megaPasswordList"
+        "phase4",
+        "phase4Data"
     )
 
     # Output file
@@ -148,7 +148,8 @@ def generate_passwords():
                     # output_file.write(number + number + symbol + "\n")
                     # output_file.write(symbol + symbol + number + "\n")
 
-
+def phase4():
+    generate_passwords()
 
 if __name__ == "__main__":
-    generate_passwords()
+    phase4()

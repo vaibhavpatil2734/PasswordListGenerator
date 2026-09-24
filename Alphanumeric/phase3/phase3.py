@@ -38,15 +38,15 @@ def TheGenrator():
     input_path = os.path.join(
         BASE_DIR,
         "..",
-        "phaseTwo",
-        "comboGeneratedData",
-        "comboGeneratedDataText.txt"
+        "phase2",
+        "phase2Data",
+        "phase2ComboGeneratedDataText.txt"
     )
 
     output_path = os.path.join(
         BASE_DIR,
-        "row",
-        "rowText.txt"
+        "phase3Data",
+        "phase3SubtitutedDataText.txt"
     )
 
     with open(input_path, "r", encoding="utf-8") as infile:
@@ -74,6 +74,9 @@ def TheGenrator():
             for variant in get_symbol_variants_with_spaces(line.lower()):
                 outfile.write(f"{variant}\n")
 
+def phase3():
+    TheGenrator()
+
 
 if __name__ == "__main__":
-    TheGenrator()
+    phase3()

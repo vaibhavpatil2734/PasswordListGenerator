@@ -5,7 +5,7 @@ def inputText():
         data = input("Enter text : ")
         if data == "$":
             break
-        with open("inputData/targetCombinationalDataInText.txt", "a") as file:
+        with open("phase1/phase1Data/phase1TargetCombinationalDataInText.txt", "a") as file:
             file.write(data)
             file.write("\n")
     print("Enter target info in text Uncombinable to stop write '$'")
@@ -14,7 +14,7 @@ def inputText():
         data = input("Enter text : ")
         if data == "$":
             break
-        with open("inputData/targetUncombinableDataInText.txt", "a") as file:
+        with open("phase1/phase1Data/phase1TargetUncombinableDataInText.txt", "a") as file:
             file.write(data)
             file.write("\n")
     
@@ -26,10 +26,13 @@ def inputNumber():
         data = input("Enter number : ")
         if data == "$":
             break
-        with open("inputData/targetDataInNumber.txt", "a") as file :
+        with open("phase1/phase1Data/phase1TargetDataInNumber.txt", "a") as file :
             file.write(data)
             file.write("\n")
-    
-if __name__ == "__main__":
+
+def phase1():
     inputText()
     inputNumber()
+    
+if __name__ == "__main__":
+    phase1()
