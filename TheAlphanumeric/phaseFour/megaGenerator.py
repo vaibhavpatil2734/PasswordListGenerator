@@ -1,64 +1,154 @@
 import os
 
+
 def generate_passwords():
-    input_path_number = os.path.join("TheAlphanumeric", "phaseTwo", "comboGeneratedData", "comboGeneratedDataNumber.txt")
-    input_path_string = os.path.join(os.path.dirname(__file__), "..", "phaseThree", "row", "rowText.txt")
-    output_path = os.path.join("TheAlphanumeric", "phaseFour", "megaPasswordList", "megaPasswordList.txt")
+
+    # Base directory = TheAlphanumeric
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    # Input paths
+    input_path_number = os.path.join(
+        BASE_DIR,
+        "phaseTwo",
+        "comboGeneratedData",
+        "comboGeneratedDataNumber.txt"
+    )
+
+    input_path_string = os.path.join(
+        BASE_DIR,
+        "phaseThree",
+        "row",
+        "rowText.txt"
+    )
+
+    # Output directory
+    output_dir = os.path.join(
+        BASE_DIR,
+        "phaseFour",
+        "megaPasswordList"
+    )
+
+    # Output file
+    output_path = os.path.join(
+        output_dir,
+        "megaPasswordList.txt"
+    )
+
+    # Create output directory if it doesn't exist
+    os.makedirs(output_dir, exist_ok=True)
 
     symbols = ['@', '#', '$', '!', '_', '-', '.', '*']
 
+    # Read strings
     with open(input_path_string, "r", encoding="utf-8") as string_file:
-        strings = [line.strip() for line in string_file if line.strip()]
+        raw_strings = [
+            line.strip()
+            for line in string_file
+            if line.strip()
+        ]
 
+    # Read numbers
     with open(input_path_number, "r", encoding="utf-8") as number_file:
-        numbers = [line.strip() for line in number_file if line.strip()]
+        numbers = [
+            line.strip()
+            for line in number_file
+            if line.strip()
+        ]
 
-    pair_count = min(len(strings), len(numbers))
+    # Generate string variants
+    string_variants = []
 
+    for raw in raw_strings:
+        string_variants.append(raw)
+
+        if " " in raw:
+            string_variants.append(raw.replace(" ", ""))
+            string_variants.append(raw.replace(" ", "_"))
+            string_variants.append(raw.replace(" ", "-"))
+
+    # Generate passwords
     with open(output_path, "w", encoding="utf-8") as output_file:
-        for i in range(pair_count):
-            string = strings[i]
-            number = numbers[i]
 
-            for symbol in symbols:
-                output_file.write(string + "\n")
-                output_file.write(number + "\n")
-                output_file.write(symbol + "\n")
-                output_file.write(string + symbol + "\n")
-                output_file.write(string + number + "\n")
-                output_file.write(symbol + string + "\n")
-                output_file.write(symbol + number + "\n")
-                output_file.write(number + string + "\n")
-                output_file.write(number + symbol + "\n")
-                output_file.write(string + string + "\n")
-                output_file.write(symbol + symbol + "\n")
-                output_file.write(number + number + "\n")
-                output_file.write(string + symbol + number + "\n")
-                output_file.write(string + number + symbol + "\n")
-                output_file.write(symbol + string + number + "\n")
-                output_file.write(symbol + number + string + "\n")
-                output_file.write(number + string + symbol + "\n")
-                output_file.write(number + symbol + string + "\n")
-                output_file.write(string + string + string + "\n")
-                output_file.write(symbol + symbol + symbol + "\n")
-                output_file.write(number + number + number + "\n")
-                output_file.write(string + string + symbol + "\n")
-                output_file.write(string + string + number + "\n")
-                output_file.write(string + symbol + string + "\n")
-                output_file.write(string + number + string + "\n")
-                output_file.write(symbol + symbol + string + "\n")
-                output_file.write(symbol + symbol + number + "\n")
-                output_file.write(symbol + string + symbol + "\n")
-                output_file.write(symbol + number + symbol + "\n")
-                output_file.write(number + number + string + "\n")
-                output_file.write(number + number + symbol + "\n")
-                output_file.write(number + string + number + "\n")
-                output_file.write(number + symbol + number + "\n")
-                output_file.write(string + symbol + symbol + "\n")
-                output_file.write(string + number + number + "\n")
-                output_file.write(symbol + string + string + "\n")
-                output_file.write(symbol + number + number + "\n")
-                output_file.write(number + symbol + symbol + "\n")
+        for string in string_variants:
+
+            for number in numbers:
+
+                for symbol in symbols:
+
+                    # ============================================================
+                    # HIGH POSSIBILITY
+                    # ============================================================
+
+                    output_file.write(string + "\n")
+                    output_file.write(number + "\n")
+
+                    output_file.write(string + number + "\n")
+                    output_file.write(string + symbol + "\n")
+
+                    output_file.write(number + string + "\n")
+                    output_file.write(symbol + string + "\n")
+
+                    output_file.write(string + symbol + number + "\n")
+                    output_file.write(string + number + symbol + "\n")
+
+                    output_file.write(string + string + "\n")
+                    output_file.write(string + string + number + "\n")
+                    output_file.write(string + string + symbol + "\n")
+
+                    output_file.write(string + number + number + "\n")
+                    output_file.write(string + symbol + symbol + "\n")
+
+
+                    # ============================================================
+                    # MEDIUM POSSIBILITY
+                    # ============================================================
+
+                    # output_file.write(number + string + symbol + "\n")
+                    # output_file.write(number + symbol + string + "\n")
+
+                    # output_file.write(symbol + string + number + "\n")
+                    # output_file.write(symbol + number + string + "\n")
+
+                    # output_file.write(string + number + string + "\n")
+                    # output_file.write(string + symbol + string + "\n")
+
+                    # output_file.write(string + string + string + "\n")
+
+                    # output_file.write(number + number + string + "\n")
+                    # output_file.write(number + number + symbol + "\n")
+
+                    # output_file.write(symbol + symbol + string + "\n")
+                    # output_file.write(symbol + symbol + number + "\n")
+
+                    # output_file.write(number + string + number + "\n")
+                    # output_file.write(number + symbol + number + "\n")
+
+
+                    # ============================================================
+                    # LOW POSSIBILITY
+                    # ============================================================
+
+                    # output_file.write(symbol + "\n")
+
+                    # output_file.write(number + symbol + "\n")
+                    # output_file.write(symbol + number + "\n")
+
+                    # output_file.write(number + number + "\n")
+                    # output_file.write(symbol + symbol + "\n")
+
+                    # output_file.write(number + number + number + "\n")
+                    # output_file.write(symbol + symbol + symbol + "\n")
+
+                    # output_file.write(symbol + string + string + "\n")
+                    # output_file.write(symbol + number + number + "\n")
+
+                    # output_file.write(number + symbol + symbol + "\n")
+                    # output_file.write(symbol + number + symbol + "\n")
+
+                    # output_file.write(number + number + symbol + "\n")
+                    # output_file.write(symbol + symbol + number + "\n")
+
+
 
 if __name__ == "__main__":
     generate_passwords()
