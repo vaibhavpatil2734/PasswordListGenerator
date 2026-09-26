@@ -52,4 +52,4 @@ Here's a quick look at the tool in action (work in progress):
 Once installed, you can run the Python script with the following command:
 
 ```bash
-python generatePasswords.py
+python Main.py
