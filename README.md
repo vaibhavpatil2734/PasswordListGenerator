@@ -22,7 +22,7 @@ The **Password List Generator** is a Python-based tool designed to create custom
 
 Here's a quick look at the tool in action (work in progress):
 
-![Password List Generator](https://www.kindpng.com/picc/m/48-480328_password-cartoon-png-image-transparent-background-password-icon.png)
+![Password List Generator](./demo.png)
 
 *Note: This project is still in development. Some features may not be fully functional.*
 
